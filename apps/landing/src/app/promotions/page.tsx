@@ -1,4 +1,4 @@
-import { Gift, AlertCircle, Calendar, CheckCircle } from 'lucide-react';
+import { Gift, Tag, Clock, AlertCircle, CheckCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -12,49 +12,32 @@ export default function PromotionsPage() {
             <div className="container">
                 <div className="legal-header">
                     <Gift size={48} className="legal-icon" />
-                    <h1>Promotions Terms & Conditions</h1>
+                    <h1>Promotions Terms &amp; Conditions</h1>
                     <p>Last updated: January 2026</p>
                 </div>
 
                 <div className="legal-section">
-                    <h2>General Promotion Terms</h2>
+                    <h2>General Terms</h2>
                     <p>
-                        The following terms apply to all promotional offers, discount codes, and special campaigns
-                        offered through AtlasForge and its affiliated storefronts.
+                        These terms apply to all promotional offers, discount codes, and special deals
+                        available on the AtlasForge platform unless otherwise specified.
                     </p>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Promotional Code Usage</h2>
+                    <h2>Promotional Codes</h2>
                     <div className="policy-card">
                         <div className="policy-icon">
-                            <Gift size={24} />
+                            <Tag size={24} />
                         </div>
                         <div className="policy-content">
-                            <h3>How Promo Codes Work</h3>
+                            <h3>General Code Rules</h3>
                             <ul>
-                                <li>Enter valid promo codes at checkout before completing payment</li>
-                                <li>Only one promotional code can be used per order</li>
-                                <li>Promotional codes cannot be combined with other offers unless stated</li>
-                                <li>Codes are case-sensitive and must be entered exactly as provided</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="legal-section">
-                    <h2>Validity & Expiration</h2>
-                    <div className="policy-card">
-                        <div className="policy-icon">
-                            <Calendar size={24} />
-                        </div>
-                        <div className="policy-content">
-                            <h3>Time Limits</h3>
-                            <ul>
-                                <li>All promotions have specific start and end dates</li>
-                                <li>Expired codes will not be honored</li>
-                                <li>Promotions may end early if maximum redemptions are reached</li>
-                                <li>Time zones are based on Central European Time (CET)</li>
+                                <li>Codes are single-use unless otherwise stated</li>
+                                <li>Cannot be combined with other offers unless explicitly allowed</li>
+                                <li>Valid only during the specified promotional period</li>
+                                <li>May have minimum purchase requirements</li>
+                                <li>Not redeemable for cash</li>
                             </ul>
                         </div>
                     </div>
@@ -62,71 +45,66 @@ export default function PromotionsPage() {
 
                 <div className="legal-section">
                     <h2>Eligibility</h2>
-                    <p>Unless otherwise specified:</p>
+                    <p>
+                        Promotional offers may be restricted to:
+                    </p>
                     <ul>
-                        <li>Promotions are available to all registered users</li>
-                        <li>Some promotions may be limited to first-time customers only</li>
-                        <li>Minimum purchase amounts may apply</li>
-                        <li>Certain product categories may be excluded</li>
-                        <li>Promotions are not valid on gift cards or previous purchases</li>
+                        <li>New customers only</li>
+                        <li>Specific geographic regions</li>
+                        <li>Certain product categories</li>
+                        <li>Subscription tier holders</li>
+                        <li>First-time purchasers</li>
                     </ul>
+                    <p>
+                        Eligibility requirements will be clearly stated in the promotion details.
+                    </p>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Modifications & Cancellations</h2>
+                    <h2>Merchant Promotions</h2>
+                    <p>
+                        Individual merchants on the AtlasForge platform may offer their own promotions.
+                        Merchant-specific promotions are governed by the merchant&apos;s own terms and conditions.
+                    </p>
+
                     <div className="highlight-box warning">
                         <AlertCircle size={20} />
-                        <div>
-                            <p>
-                                <strong>Important:</strong> Saidan Group and affiliated stores reserve the right to:
-                            </p>
-                            <ul>
-                                <li>Modify or cancel any promotion at any time</li>
-                                <li>Limit quantities or exclude certain items</li>
-                                <li>Revoke promotional benefits if fraud is suspected</li>
-                                <li>Correct any errors in promotion details</li>
-                            </ul>
-                        </div>
+                        <p>
+                            Saidan Group is not responsible for merchant-issued promotions.
+                            Please contact the merchant directly for issues with their promotional offers.
+                        </p>
                     </div>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Refunds on Promotional Orders</h2>
-                    <p>
-                        When returning items purchased with a promotional discount:
-                    </p>
+                    <h2>Void Conditions</h2>
+                    <p>Promotions may be voided if:</p>
                     <ul>
-                        <li>Refunds are calculated based on the discounted price paid</li>
-                        <li>If a minimum purchase requirement is no longer met after partial return, the promotion may be voided</li>
-                        <li>Free gift items must be returned with the main purchase to qualify for full refund</li>
+                        <li>The promotion code has expired</li>
+                        <li>The offer has been used beyond its allowed limit</li>
+                        <li>Abuse or fraud is detected</li>
+                        <li>Technical errors caused incorrect pricing</li>
+                        <li>The promotion conflicts with regulatory requirements</li>
                     </ul>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Current Promotions</h2>
-                    <div className="policy-card success">
-                        <div className="policy-icon">
-                            <CheckCircle size={24} />
-                        </div>
-                        <div className="policy-content">
-                            <h3>No Active Platform-Wide Promotions</h3>
-                            <p>
-                                There are currently no active platform-wide promotions. Individual stores may offer
-                                their own discounts and special offers. Please check each store for current deals.
-                            </p>
-                        </div>
-                    </div>
+                    <h2>Modifications</h2>
+                    <p>
+                        Saidan Group reserves the right to modify, suspend, or terminate any promotion
+                        at any time without prior notice. This includes the right to disqualify any
+                        user who we believe is abusing the promotion.
+                    </p>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Contact Us</h2>
-                    <p>
-                        For questions about promotions, please contact:
-                    </p>
+                    <h2>Contact Information</h2>
                     <address className="legal-address">
-                        <strong>Saidan Group</strong><br />
-                        Email: <a href="mailto:contact@saidan.group">contact@saidan.group</a><br />
-                        Address: Turnhoutsebaan 363 box 401, 2140 Antwerpen, Belgium
+                        Saidan Group<br />
+                        Turnhoutsebaan 363 box 401<br />
+                        2140 Antwerpen, Belgium<br /><br />
+                        Email: <a href="mailto:saidangroup@outlook.com">saidangroup@outlook.com</a><br />
+                        VAT: BE 1017.617.595
                     </address>
                 </div>
             </div>

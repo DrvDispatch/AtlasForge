@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, MessageSquare } from 'lucide-react';
+import { Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -19,18 +19,18 @@ export default function ContactPage() {
                 <div className="contact-grid">
                     <div className="contact-card">
                         <div className="contact-icon">
-                            <Mail size={24} />
+                            <Mail size={20} />
                         </div>
                         <h3>Email</h3>
                         <p>For general inquiries and support</p>
-                        <a href="mailto:contact@saidan.group" className="contact-link">
-                            contact@saidan.group
+                        <a href="mailto:saidangroup@outlook.com" className="contact-link">
+                            saidangroup@outlook.com
                         </a>
                     </div>
 
                     <div className="contact-card">
                         <div className="contact-icon">
-                            <MapPin size={24} />
+                            <MapPin size={20} />
                         </div>
                         <h3>Address</h3>
                         <p>Our headquarters</p>
@@ -43,26 +43,25 @@ export default function ContactPage() {
 
                     <div className="contact-card">
                         <div className="contact-icon">
-                            <Clock size={24} />
+                            <Clock size={20} />
                         </div>
                         <h3>Business Hours</h3>
-                        <p>When we are available</p>
+                        <p>When we&apos;re available</p>
                         <div className="contact-hours">
-                            Monday - Friday: 9:00 - 18:00 CET<br />
-                            Saturday - Sunday: Closed
+                            Monday – Friday: 9:00 – 18:00 CET<br />
+                            Saturday – Sunday: Closed
                         </div>
                     </div>
 
                     <div className="contact-card">
                         <div className="contact-icon">
-                            <MessageSquare size={24} />
+                            <MessageSquare size={20} />
                         </div>
                         <h3>Response Time</h3>
-                        <p>Expected response times</p>
+                        <p>What to expect</p>
                         <div className="contact-response">
-                            General inquiries: 24-48 hours<br />
-                            Technical support: 12-24 hours<br />
-                            Urgent issues: 4-8 hours
+                            We typically respond within 24–48 business hours.
+                            Priority support available for enterprise customers.
                         </div>
                     </div>
                 </div>
@@ -80,26 +79,21 @@ export default function ContactPage() {
                             <strong>Country:</strong> Belgium
                         </div>
                         <div className="info-item">
-                            <strong>EU Member State:</strong> Yes
+                            <strong>Business Type:</strong> Technology Services
                         </div>
                     </div>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Support Channels</h2>
+                    <h2>How to Reach Us</h2>
                     <p>
-                        For the fastest response, please email us at <a href="mailto:contact@saidan.group">contact@saidan.group</a> with
-                        a detailed description of your inquiry. Include your account email and any relevant order numbers if applicable.
+                        For the fastest response, please email us at <a href="mailto:saidangroup@outlook.com">saidangroup@outlook.com</a> with
+                        a clear subject line describing your inquiry.
                     </p>
                     <p>
-                        For platform-related technical issues, please include:
+                        For billing inquiries, include your account email and any relevant invoice numbers.
+                        For technical support, please describe the issue in detail.
                     </p>
-                    <ul>
-                        <li>Your tenant/store name</li>
-                        <li>Description of the issue</li>
-                        <li>Steps to reproduce (if applicable)</li>
-                        <li>Any error messages received</li>
-                    </ul>
                 </div>
             </div>
         </div>

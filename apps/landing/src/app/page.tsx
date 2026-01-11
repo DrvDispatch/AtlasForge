@@ -6,7 +6,6 @@ export default function HomePage() {
         <>
             {/* Hero Section */}
             <section className="hero">
-                <div className="hero-glow" />
                 <div className="container">
                     <div className="badge">
                         <Shield size={14} />
@@ -24,7 +23,7 @@ export default function HomePage() {
                         <Link href="/contact" className="primary-btn">
                             Get Started
                         </Link>
-                        <Link href="mailto:contact@saidan.group" className="secondary-btn">
+                        <Link href="mailto:saidangroup@outlook.com" className="secondary-btn">
                             Contact Sales
                         </Link>
                     </div>
@@ -41,45 +40,45 @@ export default function HomePage() {
                     <div className="grid">
                         <div className="card">
                             <div className="card-icon">
-                                <Building2 size={24} />
+                                <Building2 size={20} />
                             </div>
                             <h3>Multi-Tenant Isolation</h3>
-                            <p>Every tenant gets their own dedicated environment with complete database isolation and branded storefront. Your data stays secure and separated.</p>
+                            <p>Every tenant gets their own dedicated environment with complete database isolation and branded storefront.</p>
                         </div>
                         <div className="card">
                             <div className="card-icon">
-                                <CreditCard size={24} />
+                                <CreditCard size={20} />
                             </div>
                             <h3>Stripe Connect</h3>
-                            <p>Integrated payments with Stripe Express. Automated payouts, platform fee handling, and PCI-compliant transactions out of the box.</p>
+                            <p>Integrated payments with Stripe Express. Automated payouts, platform fee handling, and PCI-compliant transactions.</p>
                         </div>
                         <div className="card">
                             <div className="card-icon">
-                                <Calendar size={24} />
+                                <Calendar size={20} />
                             </div>
                             <h3>Unified Bookings</h3>
-                            <p>Manage appointments and physical products in a single dashboard. Perfect for service businesses, salons, consultants, and more.</p>
+                            <p>Manage appointments and physical products in a single dashboard. Perfect for service businesses.</p>
                         </div>
                         <div className="card">
                             <div className="card-icon">
-                                <Palette size={24} />
+                                <Palette size={20} />
                             </div>
                             <h3>Custom Skins</h3>
-                            <p>Flexible theming engine allows each tenant to look unique while sharing the same robust, battle-tested core infrastructure.</p>
+                            <p>Flexible theming engine allows each tenant to look unique while sharing the same robust core.</p>
                         </div>
                         <div className="card">
                             <div className="card-icon">
-                                <Zap size={24} />
+                                <Zap size={20} />
                             </div>
                             <h3>Lightning Fast</h3>
-                            <p>Built on modern technologies with edge caching and optimized delivery. Your customers get sub-second load times globally.</p>
+                            <p>Built on modern technologies with edge caching. Your customers get sub-second load times globally.</p>
                         </div>
                         <div className="card">
                             <div className="card-icon">
-                                <Lock size={24} />
+                                <Lock size={20} />
                             </div>
                             <h3>Enterprise Security</h3>
-                            <p>SOC 2 compliant infrastructure with end-to-end encryption, regular security audits, and comprehensive access controls.</p>
+                            <p>End-to-end encryption, regular security audits, and comprehensive access controls.</p>
                         </div>
                     </div>
                 </div>
@@ -116,7 +115,7 @@ export default function HomePage() {
             <section className="trust">
                 <div className="container">
                     <div className="trust-content">
-                        <Globe size={48} className="trust-icon" />
+                        <Globe size={40} className="trust-icon" />
                         <h2>Built by Saidan Group</h2>
                         <p>
                             Headquartered in Antwerp, Belgium, we build reliability-first software for the modern economy.
@@ -124,15 +123,15 @@ export default function HomePage() {
                         </p>
                         <div className="trust-badges">
                             <div className="trust-badge">
-                                <Shield size={20} />
+                                <Shield size={16} />
                                 GDPR Compliant
                             </div>
                             <div className="trust-badge">
-                                <Lock size={20} />
+                                <Lock size={16} />
                                 256-bit Encryption
                             </div>
                             <div className="trust-badge">
-                                <CreditCard size={20} />
+                                <CreditCard size={16} />
                                 PCI DSS Level 1
                             </div>
                         </div>

@@ -1,9 +1,9 @@
-import { FileText, AlertCircle, CheckCircle, Scale } from 'lucide-react';
+import { FileText, Scale, AlertTriangle } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Terms of Service - AtlasForge',
-    description: 'Terms and conditions for using the AtlasForge platform.',
+    description: 'Terms and conditions for using the AtlasForge platform and services.',
 };
 
 export default function TermsPage() {
@@ -17,74 +17,61 @@ export default function TermsPage() {
                 </div>
 
                 <div className="legal-section">
-                    <h2>1. Agreement to Terms</h2>
+                    <h2>1. Acceptance of Terms</h2>
                     <p>
-                        By accessing or using AtlasForge services provided by Saidan Group (VAT: BE 1017.617.595),
-                        you agree to be bound by these Terms of Service. If you disagree with any part of the terms,
-                        you may not access the service.
+                        By accessing or using the AtlasForge platform (&quot;Service&quot;), you agree to be bound by these
+                        Terms of Service (&quot;Terms&quot;). If you disagree with any part of these terms, you may not
+                        access the Service.
                     </p>
                 </div>
 
                 <div className="legal-section">
                     <h2>2. Description of Service</h2>
                     <p>
-                        AtlasForge is a multi-tenant SaaS platform that provides:
+                        AtlasForge provides a multi-tenant software-as-a-service (SaaS) platform that enables
+                        businesses to create and manage online storefronts, process payments, and handle bookings.
                     </p>
-                    <ul>
-                        <li>E-commerce storefront hosting and management</li>
-                        <li>Payment processing through Stripe Connect</li>
-                        <li>Booking and appointment management</li>
-                        <li>Custom branding and theming capabilities</li>
-                        <li>Administrative dashboard and analytics</li>
-                    </ul>
                 </div>
 
                 <div className="legal-section">
                     <h2>3. User Accounts</h2>
                     <p>
-                        When you create an account with us, you must provide accurate, complete, and current information.
-                        Failure to do so constitutes a breach of the Terms, which may result in immediate termination of
-                        your account.
+                        When you create an account, you must provide accurate and complete information.
+                        You are responsible for:
                     </p>
-                    <p>
-                        You are responsible for safeguarding the password and for all activities that occur under your account.
-                    </p>
+                    <ul>
+                        <li>Maintaining the security of your account credentials</li>
+                        <li>All activities that occur under your account</li>
+                        <li>Notifying us immediately of any unauthorized access</li>
+                    </ul>
                 </div>
 
                 <div className="legal-section">
                     <h2>4. Payment Terms</h2>
                     <p>
-                        All payments are processed securely through Stripe. By using our payment services, you also agree
-                        to Stripe's terms of service. Transaction fees and platform fees are clearly displayed before
-                        any purchase is completed.
+                        Payment processing is handled through Stripe. By using our Service, you also agree
+                        to Stripe&apos;s Services Agreement. Platform fees and subscription costs are billed
+                        according to your selected plan.
                     </p>
-                    <div className="highlight-box">
-                        <AlertCircle size={20} />
-                        <p>
-                            <strong>Important:</strong> All prices are displayed in EUR unless otherwise specified.
-                            VAT is applied according to Belgian and EU regulations.
-                        </p>
-                    </div>
                 </div>
 
                 <div className="legal-section">
                     <h2>5. Acceptable Use</h2>
-                    <p>You agree not to use the service to:</p>
+                    <p>You agree not to use the Service to:</p>
                     <ul>
                         <li>Violate any applicable laws or regulations</li>
-                        <li>Infringe upon intellectual property rights</li>
+                        <li>Infringe on intellectual property rights</li>
                         <li>Transmit harmful code or malware</li>
                         <li>Engage in fraudulent activities</li>
                         <li>Harass, abuse, or harm others</li>
-                        <li>Sell prohibited or restricted items</li>
                     </ul>
                 </div>
 
                 <div className="legal-section">
                     <h2>6. Intellectual Property</h2>
                     <p>
-                        The Service and its original content, features, and functionality are owned by Saidan Group
-                        and are protected by international copyright, trademark, patent, trade secret, and other
+                        The Service and its original content, features, and functionality are owned by
+                        Saidan Group and are protected by international copyright, trademark, and other
                         intellectual property laws.
                     </p>
                 </div>
@@ -92,47 +79,43 @@ export default function TermsPage() {
                 <div className="legal-section">
                     <h2>7. Termination</h2>
                     <p>
-                        We may terminate or suspend your account immediately, without prior notice or liability,
-                        for any reason, including breach of these Terms. Upon termination, your right to use the
-                        Service will cease immediately.
+                        We may terminate or suspend your account immediately, without prior notice, for
+                        conduct that we believe violates these Terms or is harmful to other users, us,
+                        or third parties.
                     </p>
                 </div>
 
                 <div className="legal-section">
                     <h2>8. Limitation of Liability</h2>
                     <p>
-                        In no event shall Saidan Group be liable for any indirect, incidental, special, consequential,
-                        or punitive damages resulting from your use or inability to use the service.
+                        In no event shall Saidan Group be liable for any indirect, incidental, special,
+                        consequential, or punitive damages arising out of your use of the Service.
                     </p>
                 </div>
 
                 <div className="legal-section">
                     <h2>9. Governing Law</h2>
                     <p>
-                        These Terms shall be governed by the laws of Belgium, without regard to its conflict of law
-                        provisions. Any disputes shall be resolved in the courts of Antwerp, Belgium.
+                        These Terms shall be governed by the laws of Belgium. Any disputes shall be
+                        resolved in the courts of Antwerp, Belgium.
                     </p>
                 </div>
 
                 <div className="legal-section">
                     <h2>10. Changes to Terms</h2>
                     <p>
-                        We reserve the right to modify or replace these Terms at any time. Material changes will be
-                        notified at least 30 days before taking effect. Continued use of the Service after changes
-                        constitutes acceptance of new terms.
+                        We reserve the right to modify these Terms at any time. We will notify users
+                        of any material changes via email or through the Service.
                     </p>
                 </div>
 
                 <div className="legal-section">
                     <h2>Contact Information</h2>
-                    <p>
-                        For questions about these Terms, please contact us at:
-                    </p>
                     <address className="legal-address">
-                        <strong>Saidan Group</strong><br />
+                        Saidan Group<br />
                         Turnhoutsebaan 363 box 401<br />
-                        2140 Antwerpen, Belgium<br />
-                        Email: <a href="mailto:contact@saidan.group">contact@saidan.group</a><br />
+                        2140 Antwerpen, Belgium<br /><br />
+                        Email: <a href="mailto:saidangroup@outlook.com">saidangroup@outlook.com</a><br />
                         VAT: BE 1017.617.595
                     </address>
                 </div>

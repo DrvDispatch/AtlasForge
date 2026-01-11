@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Mail, MapPin, Phone, Shield, FileText, RotateCcw, Ban, Scale, Gift } from 'lucide-react';
+import { Mail, MapPin, Shield, FileText, RotateCcw, Ban, Scale, Gift } from 'lucide-react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,13 +21,14 @@ export default function RootLayout({
                     <header className="header">
                         <div className="container header-inner">
                             <Link href="/" className="logo">
-                                <Shield size={20} />
+                                <Shield size={18} />
                                 AtlasForge
                             </Link>
                             <nav className="nav">
                                 <Link href="/#features" className="nav-link">Features</Link>
                                 <Link href="/contact" className="nav-link">Contact</Link>
                                 <Link href="/terms" className="nav-link">Terms</Link>
+                                <Link href="/refunds" className="nav-link">Refunds</Link>
                             </nav>
                         </div>
                     </header>
@@ -41,7 +42,7 @@ export default function RootLayout({
                             <div className="footer-grid">
                                 <div className="footer-brand">
                                     <div className="footer-logo">
-                                        <Shield size={18} />
+                                        <Shield size={16} />
                                         AtlasForge
                                     </div>
                                     <p className="footer-tagline">Enterprise-grade multi-tenant infrastructure for modern businesses.</p>
@@ -69,7 +70,7 @@ export default function RootLayout({
                                     <h4>Business Info</h4>
                                     <p><Scale size={14} /> Saidan Group</p>
                                     <p>VAT: BE 1017.617.595</p>
-                                    <a href="mailto:contact@saidan.group"><Mail size={14} /> contact@saidan.group</a>
+                                    <a href="mailto:saidangroup@outlook.com"><Mail size={14} /> saidangroup@outlook.com</a>
                                 </div>
                             </div>
                         </div>

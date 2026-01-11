@@ -1,9 +1,9 @@
-import { Ban, Clock, AlertCircle, ArrowRight } from 'lucide-react';
+import { Ban, Clock, ShoppingCart, Calendar, CreditCard } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Cancellation Policy - AtlasForge',
-    description: 'Learn about cancellation policies for orders, subscriptions, and bookings on AtlasForge.',
+    description: 'Cancellation policy for orders, bookings, and subscriptions on AtlasForge.',
 };
 
 export default function CancellationPage() {
@@ -18,83 +18,74 @@ export default function CancellationPage() {
 
                 <div className="legal-section">
                     <h2>Order Cancellations</h2>
-                    <p>
-                        Orders can be cancelled under the following conditions:
-                    </p>
-                    <div className="policy-timeline">
-                        <div className="timeline-item">
-                            <div className="timeline-icon success">
-                                <Clock size={20} />
-                            </div>
-                            <div className="timeline-content">
-                                <h4>Within 1 hour of placing order</h4>
-                                <p>Free cancellation with full refund</p>
-                            </div>
+                    <div className="policy-card">
+                        <div className="policy-icon">
+                            <ShoppingCart size={24} />
                         </div>
-                        <div className="timeline-item">
-                            <div className="timeline-icon warning">
-                                <Clock size={20} />
-                            </div>
-                            <div className="timeline-content">
-                                <h4>Before shipping</h4>
-                                <p>Cancellation possible, subject to processing fees</p>
-                            </div>
-                        </div>
-                        <div className="timeline-item">
-                            <div className="timeline-icon error">
-                                <Clock size={20} />
-                            </div>
-                            <div className="timeline-content">
-                                <h4>After shipping</h4>
-                                <p>Cannot cancel - please see our return policy instead</p>
-                            </div>
+                        <div className="policy-content">
+                            <h3>Physical Product Orders</h3>
+                            <p>
+                                Orders can be cancelled free of charge before they are shipped.
+                                Once an order has been shipped, please refer to our Returns Policy.
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div className="legal-section">
                     <h2>Booking Cancellations</h2>
-                    <p>
-                        For appointment and booking cancellations:
-                    </p>
-                    <div className="cancellation-table">
-                        <div className="table-row header">
-                            <div>Cancellation Window</div>
-                            <div>Refund Amount</div>
+                    <div className="policy-card">
+                        <div className="policy-icon">
+                            <Calendar size={24} />
                         </div>
-                        <div className="table-row">
-                            <div>More than 48 hours before</div>
-                            <div className="success-text">100% refund</div>
+                        <div className="policy-content">
+                            <h3>Appointment &amp; Service Bookings</h3>
+                            <p>Cancellation fees may apply depending on how close to the appointment you cancel:</p>
+
+                            <div className="cancellation-table">
+                                <div className="table-row header">
+                                    <div>Cancellation Window</div>
+                                    <div>Fee</div>
+                                </div>
+                                <div className="table-row">
+                                    <div>48+ hours before</div>
+                                    <div className="success-text">Free</div>
+                                </div>
+                                <div className="table-row">
+                                    <div>24–48 hours before</div>
+                                    <div className="warning-text">25% of booking value</div>
+                                </div>
+                                <div className="table-row">
+                                    <div>Less than 24 hours</div>
+                                    <div className="error-text">50% of booking value</div>
+                                </div>
+                                <div className="table-row">
+                                    <div>No-show</div>
+                                    <div className="error-text">100% of booking value</div>
+                                </div>
+                            </div>
+
+                            <p>Note: Individual merchants may have their own cancellation policies which may vary from above.</p>
                         </div>
-                        <div className="table-row">
-                            <div>24-48 hours before</div>
-                            <div className="warning-text">50% refund</div>
-                        </div>
-                        <div className="table-row">
-                            <div>Less than 24 hours before</div>
-                            <div className="error-text">No refund</div>
-                        </div>
-                    </div>
-                    <div className="highlight-box">
-                        <AlertCircle size={20} />
-                        <p>
-                            <strong>Note:</strong> Individual stores may have stricter cancellation policies.
-                            Always check the specific terms during booking.
-                        </p>
                     </div>
                 </div>
 
                 <div className="legal-section">
                     <h2>Subscription Cancellations</h2>
-                    <p>
-                        Platform subscriptions and recurring services:
-                    </p>
-                    <ul>
-                        <li>Subscriptions can be cancelled at any time from your account dashboard</li>
-                        <li>Cancellation takes effect at the end of the current billing period</li>
-                        <li>No partial refunds for unused time within a billing period</li>
-                        <li>Annual subscriptions can be refunded within the first 14 days (pro-rated)</li>
-                    </ul>
+                    <div className="policy-card">
+                        <div className="policy-icon">
+                            <CreditCard size={24} />
+                        </div>
+                        <div className="policy-content">
+                            <h3>Platform Subscriptions</h3>
+                            <ul>
+                                <li>Subscriptions can be cancelled at any time from your account settings</li>
+                                <li>Service continues until the end of the current billing period</li>
+                                <li>No partial refunds for unused time in the billing period</li>
+                                <li>Your data will be retained for 30 days after cancellation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="legal-section">
@@ -103,56 +94,35 @@ export default function CancellationPage() {
                         <div className="step-item">
                             <div className="step-number">1</div>
                             <div>
-                                <strong>Log into your account</strong>
-                                <p>Access your account through the store or platform dashboard.</p>
+                                <strong>Orders &amp; Bookings</strong>
+                                <p>Contact the merchant directly through their storefront or order confirmation email.</p>
                             </div>
                         </div>
                         <div className="step-item">
                             <div className="step-number">2</div>
                             <div>
-                                <strong>Go to Orders/Bookings</strong>
-                                <p>Find the order or booking you wish to cancel.</p>
+                                <strong>Platform Subscriptions</strong>
+                                <p>Navigate to Settings → Billing → Cancel Subscription in your dashboard.</p>
                             </div>
                         </div>
                         <div className="step-item">
                             <div className="step-number">3</div>
                             <div>
-                                <strong>Request cancellation</strong>
-                                <p>Click the cancel button if available, or contact the store directly.</p>
-                            </div>
-                        </div>
-                        <div className="step-item">
-                            <div className="step-number">4</div>
-                            <div>
-                                <strong>Confirmation</strong>
-                                <p>You will receive an email confirming your cancellation and any applicable refund.</p>
+                                <strong>Need Help?</strong>
+                                <p>Contact us at saidangroup@outlook.com for assistance with any cancellation.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="legal-section">
-                    <h2>Exceptions</h2>
-                    <p>
-                        Cancellation may not be possible for:
-                    </p>
-                    <ul>
-                        <li>Custom or personalized orders already in production</li>
-                        <li>Perishable goods prepared for delivery</li>
-                        <li>Digital products already delivered or accessed</li>
-                        <li>Services already rendered</li>
-                    </ul>
-                </div>
-
-                <div className="legal-section">
-                    <h2>Contact Us</h2>
-                    <p>
-                        For cancellation assistance, please contact:
-                    </p>
+                    <h2>Contact Information</h2>
                     <address className="legal-address">
-                        <strong>Saidan Group</strong><br />
-                        Email: <a href="mailto:contact@saidan.group">contact@saidan.group</a><br />
-                        Address: Turnhoutsebaan 363 box 401, 2140 Antwerpen, Belgium
+                        Saidan Group<br />
+                        Turnhoutsebaan 363 box 401<br />
+                        2140 Antwerpen, Belgium<br /><br />
+                        Email: <a href="mailto:saidangroup@outlook.com">saidangroup@outlook.com</a><br />
+                        VAT: BE 1017.617.595
                     </address>
                 </div>
             </div>
