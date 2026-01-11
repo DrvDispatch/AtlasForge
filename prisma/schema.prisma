@@ -1,0 +1,658 @@
+// ===========================================
+// ATLASFORGE - PRISMA SCHEMA V1
+// ===========================================
+// A business-agnostic, modular backend platform
+// Core primitives only - Apps add their own models
+// ===========================================
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ===========================================
+// CORE: MULTI-TENANCY
+// ===========================================
+
+enum TenantStatus {
+  DRAFT      // Created but not configured
+  SEEDING    // Initial data being created
+  ACTIVE     // Live and operational
+  SUSPENDED  // Temporarily blocked by owner
+  ARCHIVED   // Soft deleted
+}
+
+model Tenant {
+  id               String       @id @default(uuid())
+  name             String
+  slug             String       @unique
+  status           TenantStatus @default(DRAFT)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  suspendedAt      DateTime?
+  archivedAt       DateTime?
+  onboardingStatus String?
+
+  // Core Relations
+  domains   TenantDomain[]
+  config    TenantConfig?
+  features  TenantFeature?
+  users     User[]
+  settings  Setting[]
+  auditLogs AuditLog[]
+
+  // Offerings App
+  offeringCategories   OfferingCategory[]
+  offerings            Offering[]
+  attributeDefinitions AttributeDefinition[]
+  bookings             Booking[]
+
+  // Ecommerce App
+  carts  Cart[]
+  orders Order[]
+
+  @@index([slug])
+  @@index([status])
+}
+
+model TenantDomain {
+  id        String   @id @default(uuid())
+  tenantId  String
+  domain    String   @unique
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  // Cloudflare integration
+  cloudflareZoneId String?
+  cloudflareStatus CloudflareDomainStatus @default(PENDING)
+  nameservers      String[]
+  sslStatus        String?
+  lastCheckedAt    DateTime?
+  errorMessage     String?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([domain])
+  @@index([tenantId])
+  @@index([cloudflareStatus])
+}
+
+enum CloudflareDomainStatus {
+  PENDING
+  ACTIVE
+  DNS_CONFIGURED
+  ERROR
+}
+
+model TenantConfig {
+  id       String @id @default(uuid())
+  tenantId String @unique
+
+  // === BRANDING ===
+  businessName   String
+  logoUrl        String?
+  faviconUrl     String?
+  primaryColor   String  @default("#7c3aed")
+  secondaryColor String?
+  accentColor    String?
+  borderRadius   String  @default("0.625rem")
+  darkMode       Boolean @default(false)
+
+  // === CONTACT ===
+  email          String?
+  phone          String?
+  whatsappNumber String?
+  address        Json?    // { line1, city, postalCode, country }
+
+  // === REGIONAL ===
+  locale         String @default("en")
+  currency       String @default("EUR")
+  currencySymbol String @default("€")
+  timezone       String @default("Europe/Brussels")
+
+  // === BUSINESS HOURS ===
+  openingHours Json?    // { monday: { open: "09:00", close: "18:00" }, ... }
+  timeSlots    Json?    // ["09:00", "09:30", "10:00", ...]
+  closedDays   Int[] @default([0])  // 0 = Sunday
+
+  // === INVOICE/BILLING ===
+  companyName   String?
+  vatNumber     String?
+  bankAccount   String?
+  bankName      String?
+  invoicePrefix String  @default("INV")
+  invoiceFooter String?
+  website       String?
+
+  // === SEO & TRACKING ===
+  googleAnalyticsId String?
+  seoTitle          String?
+  seoDescription    String?
+
+  // === MULTI-SKIN / MULTI-FRONTEND ===
+  skinName        String   @default("minimal")  // e.g., "minimal", "luxury", "dark"
+  frontendUrl     String?                        // Canonical frontend URL for CORS
+  allowedOrigins  String[] @default([])          // Additional allowed CORS origins
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+// ===========================================
+// CORE: FEATURE FLAGS (what apps are enabled)
+// ===========================================
+
+model TenantFeature {
+  id       String @id @default(uuid())
+  tenantId String @unique
+
+  // === APP TOGGLES ===
+  // Core is always on. These control optional apps.
+  catalogEnabled   Boolean @default(true)   // Can list offerings
+  pricingEnabled   Boolean @default(true)   // Can show prices
+  bookingsEnabled  Boolean @default(false)  // Appointments system
+  ecommerceEnabled Boolean @default(false)  // Full cart/checkout/orders
+  supportEnabled   Boolean @default(false)  // Tickets/chat
+  invoicingEnabled Boolean @default(false)  // PDF invoices
+  cmsEnabled       Boolean @default(true)   // Pages/banners
+  marketingEnabled Boolean @default(false)  // Campaigns
+  reviewsEnabled   Boolean @default(false)  // Reviews/ratings
+  analyticsEnabled Boolean @default(true)   // Dashboard
+  aiEnabled        Boolean @default(false)  // Gemini integration
+
+  // === ECOMMERCE SUB-FEATURES ===
+  // Only relevant when ecommerceEnabled = true
+  wishlistEnabled       Boolean @default(true)
+  stockNotifications    Boolean @default(true)
+  couponsEnabled        Boolean @default(true)
+  inventoryTracking     Boolean @default(true)
+
+  // === LIMITS ===
+  maxAdminUsers Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}
+
+// ===========================================
+// CORE: USERS & AUTH
+// ===========================================
+
+enum UserRole {
+  CUSTOMER  // End user of a tenant
+  STAFF     // Tenant employee with limited access
+  ADMIN     // Tenant administrator
+  OWNER     // Platform owner (super admin)
+}
+
+model User {
+  id           String    @id @default(uuid())
+  tenantId     String?   // null for OWNER users
+  email        String
+  passwordHash String?   // null for OAuth-only users
+  name         String
+  phone        String?
+  role         UserRole  @default(CUSTOMER)
+  isActive     Boolean   @default(true)
+  avatar       String?
+  lastActiveAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Customer enhancements
+  isVip      Boolean @default(false)
+  adminNotes String?
+  totalSpent Decimal @default(0) @db.Decimal(10, 2)
+
+  // Email verification
+  emailVerified    DateTime?
+  emailVerifyToken String?
+
+  // Password reset
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
+  // OAuth
+  googleId String?
+
+  // Relations
+  tenant        Tenant?        @relation(fields: [tenantId], references: [id])
+  refreshTokens RefreshToken[]
+  bookings      Booking[]      @relation("UserBookings")
+  cart          Cart?
+  orders        Order[]        @relation("UserOrders")
+
+  @@unique([tenantId, email])
+  @@unique([tenantId, googleId])
+  @@index([tenantId])
+  @@index([email])
+  @@index([role])
+  @@index([isVip])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+}
+
+// ===========================================
+// CORE: AUDIT LOGS
+// ===========================================
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  STATUS_CHANGE
+  LOGIN
+  LOGOUT
+  EXPORT
+  IMPERSONATE
+  OTHER
+}
+
+model AuditLog {
+  id       String @id @default(uuid())
+  tenantId String?
+
+  userId      String
+  userName    String
+  userRole    String
+  action      AuditAction
+  entityType  String       // "user", "setting", "tenant", etc.
+  entityId    String?
+  entityName  String?      // Human-readable identifier
+  description String
+  oldValue    Json?
+  newValue    Json?
+  metadata    Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime     @default(now())
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@index([action])
+  @@index([entityType])
+  @@index([createdAt])
+}
+
+// Owner-level audit (separate from tenant audits)
+model OwnerAuditLog {
+  id         String   @id @default(uuid())
+  ownerId    String   // JWT subject, not necessarily a User FK
+  action     String   // CREATE_TENANT, SUSPEND_TENANT, etc.
+  targetType String   // TENANT, DOMAIN, USER
+  targetId   String
+  metadata   Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([ownerId])
+  @@index([action])
+  @@index([targetType])
+  @@index([createdAt])
+}
+
+// ===========================================
+// CORE: SETTINGS
+// ===========================================
+
+model Setting {
+  id        String   @id @default(uuid())
+  tenantId  String?  // null = global setting
+  key       String
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, key])
+  @@index([tenantId])
+  @@index([key])
+}
+
+// ===========================================
+// CORE: OAUTH HANDOFF (cross-domain auth)
+// ===========================================
+
+model OAuthHandoffCode {
+  id         String    @id @default(uuid())
+  code       String    @unique
+  userId     String
+  tenantId   String
+  returnPath String    @default("/")
+  expiresAt  DateTime
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([code])
+  @@index([expiresAt])
+}
+
+// ===========================================
+// APP: OFFERINGS (Vertical-Agnostic Services)
+// ===========================================
+
+model OfferingCategory {
+  id          String   @id @default(uuid())
+  tenantId    String
+  parentId    String?
+  
+  name        String
+  slug        String
+  icon        String?
+  image       String?
+  description String?
+  depth       Int      @default(0)
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  tenant    Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  parent    OfferingCategory?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children  OfferingCategory[] @relation("CategoryTree")
+  offerings Offering[]
+  
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@index([parentId])
+  @@index([isActive])
+}
+
+model Offering {
+  id          String   @id @default(uuid())
+  tenantId    String
+  categoryId  String?
+  
+  name        String
+  slug        String
+  description String?
+  
+  // Pricing (cents for precision)
+  priceCents   Int?      // null = "On Request"
+  priceDisplay String?   // "€25" or "Op aanvraag"
+  
+  // Duration (for bookable services)
+  durationMinutes Int?
+  durationText    String?  // "30 min", "1-3 days"
+  
+  // Display
+  image      String?
+  icon       String?
+  isFeatured Boolean  @default(false)
+  isActive   Boolean  @default(true)
+  sortOrder  Int      @default(0)
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  tenant     Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category   OfferingCategory?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  attributes OfferingAttribute[]
+  bookings   Booking[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+  
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@index([categoryId])
+  @@index([isActive])
+  @@index([isFeatured])
+}
+
+// ===========================================
+// APP: TYPED ATTRIBUTES
+// ===========================================
+
+enum AttributeType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  SELECT
+  DURATION_MINUTES
+}
+
+model AttributeDefinition {
+  id           String        @id @default(uuid())
+  tenantId     String
+  key          String
+  label        String
+  type         AttributeType
+  options      Json?         // For SELECT type: ["Option A", "Option B"]
+  isRequired   Boolean       @default(false)
+  isFilterable Boolean       @default(false)
+  sortOrder    Int           @default(0)
+  
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  
+  tenant       Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  values       OfferingAttribute[]
+  
+  @@unique([tenantId, key])
+  @@index([tenantId])
+  @@index([isFilterable])
+}
+
+model OfferingAttribute {
+  id           String @id @default(uuid())
+  offeringId   String
+  definitionId String
+  valueJson    Json
+  
+  offering   Offering            @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  definition AttributeDefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  
+  @@unique([offeringId, definitionId])
+  @@index([offeringId])
+  @@index([definitionId])
+}
+
+// ===========================================
+// APP: BOOKINGS (Appointments)
+// ===========================================
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+model Booking {
+  id         String  @id @default(uuid())
+  tenantId   String
+  offeringId String
+  customerId String?
+  
+  // Customer info
+  customerName  String
+  customerEmail String
+  customerPhone String
+  
+  // Scheduling
+  date     DateTime @db.Date
+  timeSlot String   // "09:00"
+  
+  // Status
+  status     BookingStatus @default(PENDING)
+  notes      String?
+  adminNotes String?
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  offering Offering @relation(fields: [offeringId], references: [id])
+  customer User?    @relation("UserBookings", fields: [customerId], references: [id])
+  
+  @@unique([tenantId, date, timeSlot])
+  @@index([tenantId])
+  @@index([offeringId])
+  @@index([date])
+  @@index([status])
+  @@index([customerEmail])
+}
+
+// ===========================================
+// APP: ECOMMERCE (Cart + Orders)
+// ===========================================
+
+// Cart is session-based — stored server-side for logged-in users,
+// or client-side for guests. This model is for authenticated carts.
+model Cart {
+  id        String   @id @default(uuid())
+  tenantId  String
+  userId    String?  @unique  // One cart per user
+  sessionId String?  @unique  // One cart per session
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime // Auto-cleanup old carts
+  
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items  CartItem[]
+  
+  @@index([tenantId])
+  @@index([expiresAt])
+}
+
+model CartItem {
+  id         String @id @default(uuid())
+  cartId     String
+  offeringId String
+  quantity   Int    @default(1)
+  
+  // Price snapshot at time of add (for consistency)
+  priceCents Int
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  cart     Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  offering Offering @relation(fields: [offeringId], references: [id])
+  
+  @@unique([cartId, offeringId])
+  @@index([cartId])
+}
+
+enum OrderStatus {
+  PENDING       // Created, awaiting payment
+  PAID          // Payment received
+  PROCESSING    // Being prepared
+  SHIPPED       // In transit (if applicable)
+  COMPLETED     // Delivered or picked up
+  CANCELLED     // Cancelled by customer or admin
+  REFUNDED      // Refund processed
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  tenantId    String
+  userId      String?
+  orderNumber String      @unique
+  status      OrderStatus @default(PENDING)
+  
+  // Pricing (cents for precision)
+  subtotalCents  Int
+  discountCents  Int @default(0)
+  shippingCents  Int @default(0)
+  taxCents       Int @default(0)
+  totalCents     Int
+  
+  // Currency (from tenant config at order time)
+  currency       String @default("EUR")
+  
+  // Customer info (snapshot for order record)
+  customerEmail String
+  customerName  String
+  customerPhone String?
+  
+  // Addresses (JSON for flexibility)
+  shippingAddress Json?
+  billingAddress  Json?
+  
+  // Payment (Stripe or other)
+  paymentProvider   String?  // "stripe", "mollie", etc.
+  paymentIntentId   String?
+  paymentSessionId  String?
+  
+  // Notes
+  customerNotes String?
+  adminNotes    String?
+  
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  paidAt      DateTime?
+  shippedAt   DateTime?
+  completedAt DateTime?
+  
+  tenant Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User?       @relation("UserOrders", fields: [userId], references: [id])
+  items  OrderItem[]
+  
+  @@index([tenantId])
+  @@index([userId])
+  @@index([orderNumber])
+  @@index([status])
+  @@index([customerEmail])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id         String @id @default(uuid())
+  orderId    String
+  offeringId String?
+  
+  // Snapshot at order time (offerings may change/delete later)
+  offeringName  String
+  offeringSlug  String?
+  offeringImage String?
+  
+  quantity   Int
+  priceCents Int   // Unit price snapshot
+  totalCents Int   // quantity * priceCents
+  
+  // Attributes snapshot (if applicable)
+  attributes Json?
+  
+  order    Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  offering Offering? @relation(fields: [offeringId], references: [id], onDelete: SetNull)
+  
+  @@index([orderId])
+  @@index([offeringId])
+}
+
+

@@ -1,0 +1,1 @@
+src/prisma/prisma.service.ts(9,15): error TS2345: Argument of type '{}' is not assignable to parameter of type 'Subset<PrismaClientOptions, PrismaClientOptions>'.

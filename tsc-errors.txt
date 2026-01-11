@@ -1,0 +1,7 @@
+src/core/auth/auth.module.ts(16,13): error TS2322: Type '(configService: ConfigService) => { secret: string | undefined; signOptions: { expiresIn: string; }; }' is not assignable to type '(...args: any[]) => JwtModuleOptions | Promise<JwtModuleOptions>'.
+  Type '{ secret: string | undefined; signOptions: { expiresIn: string; }; }' is not assignable to type 'JwtModuleOptions | Promise<JwtModuleOptions>'.
+    Type '{ secret: string | undefined; signOptions: { expiresIn: string; }; }' is not assignable to type 'JwtModuleOptions'.
+      The types of 'signOptions.expiresIn' are incompatible between these types.
+        Type 'string' is not assignable to type 'number | StringValue | undefined'.
+src/core/tenancy/tenant.middleware.ts(2,49): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+src/prisma/prisma.service.ts(9,15): error TS2345: Argument of type '{}' is not assignable to parameter of type 'Subset<PrismaClientOptions, PrismaClientOptions>'.
