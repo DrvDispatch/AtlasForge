@@ -1,0 +1,128 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    /* Dark theme by default for landing */
+    color: #fff;
+    font-family: var(--font-family);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+
+/* Header */
+.header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 50;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.link {
+    font-size: 14px;
+    color: #a1a1aa;
+    transition: color 0.15s;
+}
+
+.link:hover {
+    color: #fff;
+}
+
+.loginBtn {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.loginBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Main */
+.main {
+    flex: 1;
+}
+
+/* Footer */
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 48px 0;
+    background: #000;
+}
+
+.footerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.footerLogo {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.copyright {
+    font-size: 13px;
+    color: #52525b;
+}
+
+.legal {
+    font-size: 13px;
+    color: #52525b;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+
+.legal .link {
+    color: #71717a;
+}
+
+.legal .link:hover {
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .legal {
+        text-align: left;
+    }
+}

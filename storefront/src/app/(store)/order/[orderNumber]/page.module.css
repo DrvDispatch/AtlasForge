@@ -1,0 +1,153 @@
+.section {
+    padding: var(--space-32) 0;
+}
+
+/* Success card with calm messaging */
+.successCard {
+    text-align: center;
+    padding: var(--space-32);
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius);
+    margin-bottom: var(--space-24);
+}
+
+.successIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: #16a34a;
+    color: white;
+    border-radius: 50%;
+    margin-bottom: var(--space-16);
+}
+
+.successTitle {
+    font-size: var(--font-size-h1);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+}
+
+.successMessage {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+}
+
+.successMessage strong {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* What's next steps */
+.nextSteps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-bottom: var(--space-32);
+}
+
+@media (max-width: 600px) {
+    .nextSteps {
+        grid-template-columns: 1fr;
+    }
+}
+
+.step {
+    display: flex;
+    gap: var(--space-12);
+    padding: var(--space-16);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.step svg {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.stepTitle {
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.stepDesc {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+/* Order card */
+.orderCard {
+    padding: var(--space-24);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.orderNumber {
+    font-size: var(--font-size-h1);
+    font-weight: 600;
+    font-family: var(--font-mono);
+    margin: var(--space-8) 0;
+}
+
+.status {
+    font-size: var(--font-size-meta);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-subtle);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.item {
+    display: flex;
+    gap: var(--space-8);
+    font-size: var(--font-size-body);
+}
+
+.itemQty {
+    color: var(--color-text-muted);
+    min-width: 24px;
+}
+
+.itemName {
+    flex: 1;
+}
+
+.totals {
+    display: flex;
+    flex-direction: column;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-8) 0;
+    font-size: var(--font-size-body);
+}
+
+.totalValue {
+    font-weight: 600;
+    font-size: var(--font-size-h2);
+}

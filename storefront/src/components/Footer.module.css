@@ -1,0 +1,26 @@
+.footer {
+    margin-top: auto;
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+    gap: var(--space-6);
+}
+
+.links a {
+    font-size: 0.867rem;
+    color: var(--color-text-tertiary);
+    transition: color var(--transition);
+}
+
+.links a:hover {
+    color: var(--color-text);
+}

@@ -1,0 +1,10 @@
+.price {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.quote {
+    font-size: var(--font-size-meta);
+    color: var(--color-text-muted);
+}

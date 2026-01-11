@@ -1,0 +1,282 @@
+.page {
+    min-height: 100vh;
+    background: #fafafa;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 24px;
+    transition: color 0.15s;
+}
+
+.back:hover {
+    color: #111;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+}
+
+.slug {
+    font-size: 14px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* Status chips */
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.statusDRAFT {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.statusACTIVE {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.statusSUSPENDED {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.error {
+    padding: 12px 16px;
+    background: #fee2e2;
+    color: #dc2626;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+/* Credentials card */
+.credentialsCard {
+    padding: 20px;
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.credentialsCard h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 12px;
+}
+
+.credentialsRow {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.credentialsRow span {
+    color: #92400e;
+    width: 70px;
+}
+
+.credentialsRow code {
+    font-family: monospace;
+    background: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #111;
+}
+
+.copyBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #d97706;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #92400e;
+    margin-top: 8px;
+}
+
+.credentialsWarning {
+    font-size: 12px;
+    color: #92400e;
+    margin-top: 12px;
+}
+
+/* Sections */
+.section {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.section h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 16px;
+}
+
+.sectionDesc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* Domain list */
+.domainList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.domainItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    padding: 8px 12px;
+    background: #fafafa;
+    border-radius: 6px;
+}
+
+.domainItem span:first-child {
+    flex: 1;
+    font-family: monospace;
+}
+
+.primaryBadge {
+    font-size: 11px;
+    font-weight: 600;
+    color: #16a34a;
+    background: #dcfce7;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.iconBtn {
+    padding: 6px;
+    color: #999;
+    transition: color 0.15s;
+}
+
+.iconBtn:hover {
+    color: #dc2626;
+}
+
+.addDomain {
+    display: flex;
+    gap: 8px;
+}
+
+.addDomain input {
+    flex: 1;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.addDomain button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    background: #111;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Provision form */
+.provisionForm {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.provisionForm input {
+    flex: 1;
+    min-width: 150px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.provisionForm button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    background: #7c3aed;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.activateBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #16a34a;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.suspendBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #dc2626;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+}
