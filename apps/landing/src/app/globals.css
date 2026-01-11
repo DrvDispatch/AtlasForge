@@ -50,21 +50,41 @@
     --transition: 120ms ease;
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg: #0F172A;
-        --color-bg-subtle: #1E293B;
-        --color-bg-hover: #334155;
-        --color-text: #F8FAFC;
-        --color-text-secondary: #CBD5E1;
-        --color-text-muted: #64748B;
-        --color-text-tertiary: #94A3B8;
-        --color-border: #334155;
-        --color-accent: #6366F1;
-        --color-accent-subtle: #1E1B4B;
-        --color-accent-hover: #818CF8;
-    }
+/* Dark Mode - Controlled via data-theme attribute */
+[data-theme="dark"] {
+    --color-bg: #0F172A;
+    --color-bg-subtle: #1E293B;
+    --color-bg-hover: #334155;
+    --color-text: #F8FAFC;
+    --color-text-secondary: #CBD5E1;
+    --color-text-muted: #64748B;
+    --color-text-tertiary: #94A3B8;
+    --color-border: #334155;
+    --color-accent: #6366F1;
+    --color-accent-subtle: #1E1B4B;
+    --color-accent-hover: #818CF8;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition);
+    margin-left: var(--space-8);
+}
+
+.theme-toggle:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
 }
 
 /* ═══════════════════════════════════════════════════════════════ */

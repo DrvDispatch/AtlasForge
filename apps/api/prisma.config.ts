@@ -4,13 +4,14 @@ import * as dotenv from "dotenv";
 import { resolve } from "path";
 import { defineConfig } from "prisma/config";
 
-// Load .env file from project root
-dotenv.config({ path: resolve(__dirname, ".env") });
+// Load .env file from monorepo root
+dotenv.config({ path: resolve(__dirname, "../../.env") });
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
+    seed: "npx ts-node prisma/seed.ts",
   },
   datasource: {
     url: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/atlasforge?schema=public",

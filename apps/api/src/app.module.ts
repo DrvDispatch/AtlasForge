@@ -24,7 +24,7 @@ import { EcommerceModule } from './apps/ecommerce';
         // Configuration
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: ['.env', '.env.local'],
+            envFilePath: ['../../.env', '.env', '.env.local'],
         }),
 
         // Event system for cross-module communication

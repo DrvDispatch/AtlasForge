@@ -1,3 +1,8 @@
+// Load environment variables from monorepo root BEFORE any imports that use them
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+dotenv.config({ path: resolve(__dirname, '../../../.env') });
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Mail, MapPin, Shield, FileText, RotateCcw, Ban, Scale, Gift } from 'lucide-react';
+import { ThemeToggle } from '../components/ThemeToggle';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" data-theme="light">
             <body>
                 <div className="layout">
                     <header className="header">
@@ -29,6 +30,7 @@ export default function RootLayout({
                                 <Link href="/contact" className="nav-link">Contact</Link>
                                 <Link href="/terms" className="nav-link">Terms</Link>
                                 <Link href="/refunds" className="nav-link">Refunds</Link>
+                                <ThemeToggle />
                             </nav>
                         </div>
                     </header>
